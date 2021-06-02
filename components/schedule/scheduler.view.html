@@ -1,0 +1,172 @@
+
+
+<!-- Filters -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="deptpSelect">Department</label>
+  </div>
+  <select class="custom-select" id="deptpSelect" ng-model="vm.department" ng-change="vm.updateDept()">
+    <option selected value="">ALL</option>
+    <option  ng-repeat="dept in vm.departmentList" value="{{dept._id}}">{{dept.name}}</option>
+  </select>
+</div>    
+    </div>
+      
+    <div class="col-sm">
+      <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="yearsemSelect">Year/Semester</label>
+  </div>                   
+  <select class="custom-select" id="yearsemSelect" ng-model="vm.year" ng-change="vm.applyFilter()">
+    <option selected value="">ALL</option>
+    <option  ng-repeat="year in vm.yearList" value="{{year._id}}">{{year.label}}</option>
+  </select>
+</div>
+    </div>
+      
+      
+    <div class="col-sm">
+      <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="facultySelect">Faculty</label>
+  </div>       
+  <select class="custom-select" id="facultySelect" ng-model="vm.faculty" ng-change="vm.applyFilter()">
+    <option selected value="">ALL</option>
+    <option ng-repeat="faculty in vm.facultyList " value="{{faculty._id}}">{{faculty.name}}</option>
+    
+  </select>
+</div>
+    </div>
+  </div>
+</div>
+
+<!-- Filter End -->
+
+<div class="alert {{vm.alertClass}}" role="alert">
+  {{vm.message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Section</th>
+      <th scope="col">Day</th>
+      <th scope="col">Start</th>
+      <th scope="col">End</th> 
+      <th scope="col">Faculty</th> 
+      <th scope="col">Action</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="schedule in vm.scheduleList">
+      <th scope="row">{{$index + 1}}</th>
+      <td>{{schedule.name}}</td>
+      <td>{{schedule.scheduleDetails.section}}</td>
+        <td>{{vm.days[schedule.scheduleDetails.day]}}</td>
+      <td>{{schedule.scheduleDetails.start}}</td>
+        <td>{{schedule.scheduleDetails.end}}</td>
+        <td>{{schedule.facultyDetails.name}}</td>
+        <td><a class="text-danger"ng-click="vm.deleteSchedule(schedule.scheduleDetails._id)"><i class="fas fa-trash-alt"></i></a></td>
+    </tr>
+   
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addSchedule">+ Add Schedule</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addSchedule" tabindex="-1" role="dialog" aria-labelledby="addScheduleCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addScheduleLongTitle">Create Schedule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="col-sm">  
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="subjectSelect">Subject</label>
+            </div>                   
+            <select class="custom-select" id="subjectSelect" ng-model="vm.subjectId">
+                <option  ng-repeat="sub in vm.subjectList" value="{{sub._id}}">{{sub.name}}</option>
+            </select>
+          </div>
+          </div>
+          
+          <div class="col-sm">
+           <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="sectionSelect">Section</label>
+            </div>                   
+            <select class="custom-select" id="sectionSelect" ng-model="vm.section">
+                <option   value="A">A</option>
+                <option   value="B">B</option>
+            </select>
+          </div>
+          </div>
+          
+           <div class="col-sm">
+           <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="daySelect">Day</label>
+            </div>                   
+            <select class="custom-select" id="daySelect" ng-model="vm.dayOfWeek">
+                <option  ng-repeat="day in vm.days" value="{{$index}}">{{day}}</option>
+            </select>
+          </div>
+          </div>
+          
+          <div class="row">
+                
+              
+            <div class="col-sm">  
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="start">Start</label>
+            </div>                   
+            <select class="custom-select" id="start" ng-model="vm.startHH">
+                <option  ng-repeat="i in vm.time" value="{{i}}">{{i}}</option>
+            </select>
+            <select class="custom-select" id="start" ng-model="vm.startMM">
+                <option  ng-repeat="i in vm.min" value="{{i}}">{{i}}</option>
+            </select>
+          </div>
+          </div>
+              
+            <div class="col-sm">  
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="start">End</label>
+            </div>                   
+            <select class="custom-select" id="end" ng-model="vm.endHH">
+                <option  ng-repeat="i in vm.time" value="{{i}}">{{i}}</option>
+            </select>
+            <select class="custom-select" id="end" ng-model="vm.endMM">
+                <option  ng-repeat="i in vm.min" value="{{i}}">{{i}}</option>
+            </select>
+          </div>
+          </div>
+              
+          </div>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.createSchedule()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>

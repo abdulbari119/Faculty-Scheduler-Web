@@ -1,0 +1,19 @@
+{
+  "name": "ng-classifieds",
+  "version": "0.0.0",
+  "description": "Code for the Ultimate Angular Course at Code College",
+  "main": "index.js",
+  "author": "Ryan Chenkie",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^0.11.4",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.5.1",
+    "mdi": "^1.7.22"
+  }
+}
